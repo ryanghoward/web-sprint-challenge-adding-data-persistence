@@ -11,14 +11,6 @@ server.use("/api/projects", projectRouter);
 server.use("/api/resources", resourceRouter);
 server.use("/api/tasks", taskRouter);
 
-server.get("/", (req, res, next) => {
-  res.json({ api: "up" });
-});
-
-server.use("*", (req, res, next) => {
-  res.json({ api: "URL not found" });
-});
-
 server.use((err, req, res, next) => {
   res.status(500).json({
     message: err.message,
