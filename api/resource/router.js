@@ -3,6 +3,14 @@ const express = require("express");
 const router = express.Router();
 const Resources = require("./model");
 
+router.get("/", (req, res, next) => {
+  Resources.getAll()
+    .then((resource) => {
+      res.status(200).json(resource);
+    })
+    .catch(next);
+});
+
 router.post("/", async (req, res, next) => {
   try {
     const newResource = await Resources.create(req.body);
@@ -10,14 +18,6 @@ router.post("/", async (req, res, next) => {
   } catch (err) {
     next(err);
   }
-});
-
-router.get("/", (req, res, next) => {
-  Resources.getAll()
-    .then((resource) => {
-      res.status(200).json(resource);
-    })
-    .catch(next);
 });
 
 module.exports = router;
